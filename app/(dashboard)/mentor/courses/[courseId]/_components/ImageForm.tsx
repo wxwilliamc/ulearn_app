@@ -1,17 +1,12 @@
 "use client"
 
 import axios from 'axios'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { editCourseDescriptionSchema, editCourseDescriptionSchemaType, editCourseImageSchema, editCourseImageSchemaType, editCourseTitleSchema, editCourseTitleSchemaType } from '@/schema/form'
+import { editCourseImageSchemaType } from '@/schema/form'
 import { ImageIcon, PencilIcon, PlusCircle } from 'lucide-react'
 import { useState } from 'react'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { Textarea } from '@/components/ui/textarea'
 import { Course } from '@prisma/client'
 import Image from 'next/image'
 import FileUpload from '@/components/File-Uplaod'
@@ -25,15 +20,6 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps ) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const router = useRouter();
-    
-    const form = useForm<editCourseImageSchemaType>({
-        resolver: zodResolver(editCourseImageSchema),
-        defaultValues: {
-            imageUrl: initialData?.imageUrl || "",
-        },
-    })
-
-    const { isSubmitting, isValid } = form.formState;
 
     const onSubmit = async (values: editCourseImageSchemaType) => {
         try {
