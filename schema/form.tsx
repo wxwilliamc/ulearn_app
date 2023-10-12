@@ -39,3 +39,9 @@ export const editCategorySchema = z.object({
 })
 
 export type editCategorySchemaType = z.infer<typeof editCategorySchema>
+
+export const editCoursePriceSchema = z.object({
+    price: z.coerce.number(),
+})
+
+export type editCoursePriceSchemaType = z.infer<typeof editCoursePriceSchema>
