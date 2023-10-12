@@ -23,8 +23,9 @@ const CreateCourse = () => {
 
   const onSubmit = async (values: newCourseTitleSchemaType) => {
     try {
-      const res = await axios.post(`/api/course`, values)
+      const res = await axios.post(`/api/courses`, values)
       router.push(`/mentor/courses/${res.data.id}`)
+      toast.success("Course Created.")
     } catch {
       toast.error("Something went wrong.")
     }
