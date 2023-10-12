@@ -3,7 +3,7 @@
 import axios from 'axios'
 import { Button } from '@/components/ui/button'
 import { editCourseImageSchemaType } from '@/schema/form'
-import { ImageIcon, PencilIcon, PlusCircle } from 'lucide-react'
+import { ImageIcon, ImagePlusIcon, PencilIcon, PlusCircle } from 'lucide-react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
@@ -48,7 +48,7 @@ const ImageForm = ({ initialData, courseId }: ImageFormProps ) => {
 
                 {!isEditing && initialData.imageUrl && (
                     <>
-                        <PencilIcon className='w-4 h-4 mr-2'/>
+                        <ImageIcon className='w-4 h-4 mr-2'/>
                         Edit
                     </>
                 )}

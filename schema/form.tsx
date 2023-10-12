@@ -34,3 +34,8 @@ export const editCourseImageSchema = z.object({
 
 export type editCourseImageSchemaType = z.infer<typeof editCourseImageSchema>
 
+export const editCategorySchema = z.object({
+    categoryId: z.string().min(1),
+})
+
+export type editCategorySchemaType = z.infer<typeof editCategorySchema>

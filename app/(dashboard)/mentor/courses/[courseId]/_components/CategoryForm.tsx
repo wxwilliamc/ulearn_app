@@ -5,35 +5,38 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { editCourseDescriptionSchema, editCourseDescriptionSchemaType, editCourseTitleSchema, editCourseTitleSchemaType } from '@/schema/form'
-import { PencilIcon } from 'lucide-react'
+import { editCategorySchemaType, editCategorySchema } from '@/schema/form'
+import { HandIcon, PencilIcon, PointerIcon } from 'lucide-react'
 import { useState } from 'react'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import { Textarea } from '@/components/ui/textarea'
 import { Course } from '@prisma/client'
+import { Combobox } from '@/components/ui/combobox'
 
-interface DescriptionFormProps {
+interface CategoryFormProps {
     initialData: Course
     courseId: string
+    options: {
+        label: string, value: string
+    }[]
 }
 
-const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps ) => {
+const CategoryForm = ({ initialData, courseId, options }: CategoryFormProps ) => {
 
     const [isEditing, setIsEditing] = useState(false);
     const router = useRouter();
     
-    const form = useForm<editCourseDescriptionSchemaType>({
-        resolver: zodResolver(editCourseDescriptionSchema),
+    const form = useForm<editCategorySchemaType>({
+        resolver: zodResolver(editCategorySchema),
         defaultValues: {
-            description: initialData.description || ''
+            categoryId: initialData?.categoryId || ''
         }
     })
 
     const { isSubmitting, isValid } = form.formState;
 
-    const onSubmit = async (values: editCourseDescriptionSchemaType) => {
+    const onSubmit = async (values: editCategorySchemaType) => {
         try {
             await axios.patch(`/api/courses/${courseId}`, values)
             toast.success("Course Updated.")
@@ -46,10 +49,13 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps ) => {
 
     const toggleEdit = () => setIsEditing((edit) => !edit)
   
+    // check if the categoryid value match the option value, then show that label
+    const selectedOption = options.find((option) => option.value === initialData.categoryId)
+
     return (
     <div className='mt-5 border bg-green-50 rounded-md p-4'>
         <div className='font-medium flex items-center justify-between'>
-            Course Description
+            Course Category
             <Button onClick={toggleEdit} variant='ghost'>
                 {isEditing ? (
                     <>
@@ -57,7 +63,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps ) => {
                     </>
                 ) : (
                     <>
-                        <PencilIcon className='w-4 h-4 mr-2'/>
+                        <PointerIcon className='w-4 h-4 mr-2'/>
                         Edit
                     </>
                 )}
@@ -66,7 +72,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps ) => {
 
         {!isEditing && (
             <p className='text-sm mt-2'>
-                {initialData.description || "No description"}
+                {selectedOption?.label || 'No Category'}
             </p>
         )}
 
@@ -75,15 +81,12 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps ) => {
                 <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4 mt-4'>
                     <FormField 
                         control={form.control}
-                        name='description'
+                        name='categoryId'
                         render={({field}) => (
                             <FormItem>
                                 <FormControl>
-                                    <Textarea
-                                        rows={3} 
-                                        className='bg-white'
-                                        disabled={isSubmitting}
-                                        placeholder='e.g Tailwind Css course details...'
+                                    <Combobox 
+                                        options={...options}
                                         {...field}
                                     />
                                 </FormControl>
@@ -102,4 +105,4 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps ) => {
   )
 }
 
-export default DescriptionForm
+export default CategoryForm
