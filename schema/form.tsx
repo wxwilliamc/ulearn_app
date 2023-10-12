@@ -45,3 +45,11 @@ export const editCoursePriceSchema = z.object({
 })
 
 export type editCoursePriceSchemaType = z.infer<typeof editCoursePriceSchema>
+
+export const editAttachmentsSchema = z.object({
+    url: z.string().min(1, {
+        message: "attachment(s) is required."
+    }),
+})
+
+export type editAttachmentsSchemaType = z.infer<typeof editAttachmentsSchema>

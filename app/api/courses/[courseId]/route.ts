@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 
-export const PATCH = async (req: Request, { params} : { params: { courseId: string}}) => {
+export const PATCH = async (req: Request, { params } : { params: { courseId: string}}) => {
     try {
         const { userId } = auth();
         if(!userId) return new NextResponse("Unauthorized", { status: 401 })
