@@ -61,3 +61,9 @@ export const editChaptersSchema = z.object({
 })
 
 export type editChaptersSchemaType = z.infer<typeof editChaptersSchema>
+
+export const editChaptersAccessSchema = z.object({
+    isFree: z.boolean().default(false),
+})
+
+export type editChaptersAccessSchemaType = z.infer<typeof editChaptersAccessSchema>

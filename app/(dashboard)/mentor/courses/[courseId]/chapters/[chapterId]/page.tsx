@@ -1,13 +1,14 @@
 import { IconBadge } from '@/components/Icon-Badge';
 import { db } from '@/lib/db';
 import { auth, useAuth } from '@clerk/nextjs'
-import { ArrowLeft, LayoutDashboard } from 'lucide-react';
+import { ArrowLeft, Eye, LayoutDashboard, Video } from 'lucide-react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react'
 import toast from 'react-hot-toast';
 import ChapterTitleForm from './_components/ChapterTitleForm';
 import ChapterDescriptionForm from './_components/ChapterDescriptionForm';
+import ChapterAccessForm from './_components/ChapterAccessForm';
 
 const ChapterDetailPage = async ({ params } : {params: { courseId: string, chapterId: string }}) => {
     
@@ -40,7 +41,6 @@ const ChapterDetailPage = async ({ params } : {params: { courseId: string, chapt
     const totalRequiredField = requiredField.length;
     const comepletedField = requiredField.filter(Boolean).length;
     const fieldStatus = `(${comepletedField}/${totalRequiredField})`
-
 
     return (
         <div className='p-6'>
@@ -76,6 +76,7 @@ const ChapterDetailPage = async ({ params } : {params: { courseId: string, chapt
                                 Customize your chapter
                             </h2>
                         </div>
+
                         <ChapterTitleForm 
                             initialData={chapter}
                             courseId={courseId}
@@ -87,6 +88,26 @@ const ChapterDetailPage = async ({ params } : {params: { courseId: string, chapt
                             courseId={courseId}
                             chapterId={chapterId}
                         />
+                    </div>
+
+                    <div>
+                        <div className='flex items-center gap-x-2'>
+                            <IconBadge icon={Eye}/>
+                            <h2 className='text-xl'>Settings</h2>
+                        </div>
+
+                        <ChapterAccessForm 
+                            initialData={chapter}
+                            courseId={courseId}
+                            chapterId={chapterId}
+                        />
+                    </div>
+                </div>
+
+                <div>
+                    <div className='flex items-center gap-x-2'>
+                        <IconBadge icon={Video}/>
+                        <h2 className='text-xl'>Add a video</h2>
                     </div>
                 </div>
             </div>
