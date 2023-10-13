@@ -53,3 +53,11 @@ export const editAttachmentsSchema = z.object({
 })
 
 export type editAttachmentsSchemaType = z.infer<typeof editAttachmentsSchema>
+
+export const editChaptersSchema = z.object({
+    title: z.string().min(1, {
+        message: "attachment(s) is required."
+    }),
+})
+
+export type editChaptersSchemaType = z.infer<typeof editChaptersSchema>
