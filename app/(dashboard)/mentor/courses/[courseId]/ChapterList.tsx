@@ -71,29 +71,31 @@ const ChapterList = ({ items, onEdit, onReorder }: props) => {
                                     <div
                                         {...provided.draggableProps} 
                                         ref={provided.innerRef}
-                                        className={cn(`flex items-center gap-x-2 bg-white border-green-400 border text-slate-700 rounded-md mb-4 text0-sm`, chapter.isPublished && 'bg-sky-100 border-sky-200 text-sky-700')}
+                                        className={cn(`flex items-center gap-x-2 bg-white border-green-400 border text-slate-700 rounded-md mb-4 text0-sm`, chapter.isPublished && 'bg-green-200 border-green-600 text-green-500')}
                                     >
                                         <div 
                                             {...provided.dragHandleProps}
-                                            className={cn(`px-2 py-3 border-r border-r-green-300 hover:bg-green-400 rounded-l-sm transition`, chapter.isPublished && 'border-r-sky-200 hover:bg-sky-200')}
+                                            className={cn(`px-2 py-3 border-r border-r-green-300 hover:bg-green-400 rounded-l-sm transition`, chapter.isPublished && 'border-r-sky-200 hover:bg-green-400')}
                                         >
-                                            <Grip className='h-5 w-5 text-neutral-700'/>
+                                            <Grip className='h-5 w-5 text-green-600'/>
                                         </div>
                                         {chapter.title}
 
                                         <div className='ml-auto pr-2 flex items-center gap-x-2'>
+                                            <Pencil
+                                                onClick={() => onEdit(chapter.id)}
+                                                className='w-4 h-4 hover:opacity-75 transition-all cursor-pointer'
+                                            />
+                                            
                                             {chapter.isFree && (
                                                 <>
-                                                    <Badge className='bg-green-400'>
+                                                    <Badge className='bg-green-600'>
                                                         Free
                                                     </Badge>
                                                 </>
                                             )}
 
-                                            <Pencil
-                                                onClick={() => onEdit(chapter.id)}
-                                                className='w-4 h-4 hover:opacity-75 transition-all cursor-pointer'/>
-                                            <Badge className={cn(`bg-slate-500`, chapter.isPublished && 'bg-green-500')}>
+                                            <Badge className={cn(`bg-slate-500`, chapter.isPublished && 'bg-green-600')}>
                                                 {chapter.isPublished ? "Published" : "Draft"}
                                             </Badge>
                                             
