@@ -9,6 +9,7 @@ import toast from 'react-hot-toast';
 import ChapterTitleForm from './_components/ChapterTitleForm';
 import ChapterDescriptionForm from './_components/ChapterDescriptionForm';
 import ChapterAccessForm from './_components/ChapterAccessForm';
+import ChapterVideoForm from './_components/ChapterVideoForm';
 
 const ChapterDetailPage = async ({ params } : {params: { courseId: string, chapterId: string }}) => {
     
@@ -109,6 +110,12 @@ const ChapterDetailPage = async ({ params } : {params: { courseId: string, chapt
                         <IconBadge icon={Video}/>
                         <h2 className='text-xl'>Add a video</h2>
                     </div>
+
+                    <ChapterVideoForm 
+                        initialData={chapter}
+                        courseId={courseId}
+                        chapterId={chapterId}
+                    />
                 </div>
             </div>
         </div>

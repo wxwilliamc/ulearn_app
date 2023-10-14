@@ -67,3 +67,9 @@ export const editChaptersAccessSchema = z.object({
 })
 
 export type editChaptersAccessSchemaType = z.infer<typeof editChaptersAccessSchema>
+
+export const editChaptersVideoUrlSchema = z.object({
+    videoUrl: z.string().min(1),
+})
+
+export type editChaptersVideoUrlSchemaType = z.infer<typeof editChaptersVideoUrlSchema>
