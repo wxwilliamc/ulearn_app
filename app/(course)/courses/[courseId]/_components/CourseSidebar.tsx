@@ -29,7 +29,7 @@ const CourseSidebar = async ({ course, progressCount }: CourseSidebarProps) => {
     return (
     <div className='h-full border-r flex flex-col overflow-y-auto shadow-sm'>
         <div className='p-8 flex flex-col border-b'>
-            <h1 className='font-semibold'>
+            <h1 className='font-semibold text-green-400'>
                 {course.title}
             </h1>
             {/* Check purchase and add progress status */}
