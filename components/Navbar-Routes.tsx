@@ -12,7 +12,7 @@ const NavbarRoutes = () => {
     const router = useRouter();
 
     const isMentorPage = pathname?.startsWith("/mentor");
-    const isLearnerPage = pathname?.includes('/chapter');
+    const isLearnerPage = pathname?.includes('/courses');
     const isSearchPage = pathname === '/search'
 
   return (
