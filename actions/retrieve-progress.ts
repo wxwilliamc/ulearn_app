@@ -6,7 +6,7 @@ const retrieveProgress = async (userId: string, courseId: string): Promise<numbe
         // find all the chapter within the course is published
         const chaptersPublished = await db.chapter.findMany({
             where:{
-                id: courseId,
+                courseId,
                 isPublished: true
             },
             select: {
