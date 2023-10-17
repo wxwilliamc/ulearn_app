@@ -27,6 +27,10 @@ export const DELETE = async (req: Request, { params }: { params: { courseId: str
             }
         })
 
+        if(!attachments) {
+            return new NextResponse("Not Found", { status: 404 })
+        }
+
         return NextResponse.json(attachments)
     } catch (error) {
         console.log("[ATTACHMENT_ID]", error)
