@@ -14,7 +14,7 @@ const MobileSidebar = () => {
     //     </SheetContent>
     // </Sheet>
     <h1>
-      Will be added in future
+      (Mobile Sidebar Will be added in future)
     </h1>
   )
 }

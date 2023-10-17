@@ -25,7 +25,7 @@ const CourseMobileSidebar = ({ course, progressCount }: CourseMobileSidebar) => 
     //     </SheetContent>
     // </Sheet>
     <h1>
-        Will be Added in future
+        (Mobile Sidebar Will be added in future)
     </h1>
   )
 }
