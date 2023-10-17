@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { isMentor } from "@/lib/mentor";
 import { newCourseTitleSchema } from "@/schema/form";
 import { auth } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
@@ -6,7 +7,7 @@ import { NextResponse } from "next/server"
 export const POST = async (req: Request) => {
     try {
         const { userId } = auth();
-        if(!userId) return new NextResponse("Unauthorized", { status: 401 })
+        if(!userId || isMentor(userId)) return new NextResponse("Unauthorized", { status: 401 })
 
         const body = await req.json();
         const { title } = newCourseTitleSchema.parse(body);
