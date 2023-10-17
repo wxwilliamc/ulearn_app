@@ -7,20 +7,50 @@ import { useConfettiStore } from '@/hooks/use-confetti-store'
 import { Chapter } from '@prisma/client'
 import { cn } from '@/lib/utils'
 import { Loader2, Lock } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
 interface VideoPlayerProps {
     chapterId: string
     title: string
     courseId: string
-    nextChapter?: string
+    nextChapterId?: string
     playbackId: string
     isLocked: boolean
     completeOnEnd: boolean
 }
 
-const VideoPlayer = ({ chapterId, title, courseId, nextChapter, playbackId, isLocked, completeOnEnd }: VideoPlayerProps) => {
+const VideoPlayer = ({ chapterId, title, courseId, nextChapterId, playbackId, isLocked, completeOnEnd }: VideoPlayerProps) => {
 
     const [isReady, setIsReady] = useState(false)
+    const router = useRouter();
+    const confetti = useConfettiStore();
+
+    const onEnd = async () => {
+        try {
+            if(completeOnEnd){
+                await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
+                    isCompleted: true
+                })
+            }
+
+            if(!nextChapterId){
+                confetti.onOpen();
+            }
+
+            toast.success("Progress updated.")
+            router.refresh();
+
+            if(nextChapterId){
+                router.push(`/courses/${courseId}/chapters/${nextChapterId}`)
+            }
+
+        } catch (error) {
+            toast.error("something went wrong")
+        }
+    }
+
+
   return (
     <div className='relative aspect-video'>
         {/* Free access, and if video is not ready yet */}
@@ -44,7 +74,7 @@ const VideoPlayer = ({ chapterId, title, courseId, nextChapter, playbackId, isLo
                 title={title}
                 className={cn(!isReady && "hidden")}
                 onCanPlay={() => setIsReady(true)}
-                onEnded={() => {}}
+                onEnded={onEnd}
                 autoPlay
                 playbackId={playbackId}
             />

@@ -42,7 +42,7 @@ const RetrieveChapters = async ({ userId, courseId, chapterId }: RetrieveChapter
 
     let muxData = null;
     let attachments: Attachment[] = []
-    let nextChapter: Chapter | null = null
+    let nextChapterId: Chapter | null = null
 
     if(purchase){
         attachments = await db.attachment.findMany({
@@ -59,7 +59,7 @@ const RetrieveChapters = async ({ userId, courseId, chapterId }: RetrieveChapter
             }
         })
 
-        nextChapter = await db.chapter.findFirst({
+        nextChapterId = await db.chapter.findFirst({
             where:{
                 courseId,
                 isPublished: true,
@@ -89,7 +89,7 @@ const RetrieveChapters = async ({ userId, courseId, chapterId }: RetrieveChapter
         userProgress,
         muxData,
         attachments,
-        nextChapter,
+        nextChapterId,
     }
 
   } catch (error) {
@@ -99,7 +99,7 @@ const RetrieveChapters = async ({ userId, courseId, chapterId }: RetrieveChapter
         course: null,
         muxData: null,
         attachments: [],
-        nextChapter: null,
+        nextChapterId: null,
         userProgress: null,
         purchase: null,
     }

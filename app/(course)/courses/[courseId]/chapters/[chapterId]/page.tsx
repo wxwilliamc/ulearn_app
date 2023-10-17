@@ -9,6 +9,7 @@ import CourseEnrollButton from './_components/CourseEnrollButton';
 import { Separator } from '@/components/ui/separator';
 import { Preview } from '@/components/Preview';
 import { File } from 'lucide-react';
+import CourseProgressBtn from './_components/CourseProgressBtn';
 
 const ChapterPage = async ({ params }: { params: { courseId: string, chapterId: string }}) => {
 
@@ -22,7 +23,7 @@ const ChapterPage = async ({ params }: { params: { courseId: string, chapterId: 
         chapter,
         course,
         muxData,
-        nextChapter,
+        nextChapterId,
         purchase,
         userProgress,
     } = await RetrieveChapters({userId, courseId, chapterId})
@@ -54,7 +55,7 @@ const ChapterPage = async ({ params }: { params: { courseId: string, chapterId: 
                         chapterId={chapterId}
                         title={chapter.title}
                         courseId={courseId}
-                        nextChapter={nextChapter?.id}
+                        nextChapterId={nextChapterId?.id}
                         playbackId={muxData?.playbackId!}
                         isLocked={isLocked}
                         completeOnEnd={completeOnEnd}
@@ -69,7 +70,12 @@ const ChapterPage = async ({ params }: { params: { courseId: string, chapterId: 
 
                         {purchase ? (
                             <>
-                                {/* TODO: Add Course Progress Button */}
+                                <CourseProgressBtn 
+                                    chapterId={chapterId}
+                                    courseId={courseId}
+                                    nextChapterId={nextChapterId?.id}
+                                    isCompleted={!!userProgress?.isCompleted}
+                                />
                             </>
                         ): (
                             <>
