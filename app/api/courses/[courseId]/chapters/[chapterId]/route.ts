@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs"
 import { NextResponse } from "next/server"
 import Mux from '@mux/mux-node'
+import { isMentor } from "@/lib/mentor";
 
 const { Video } = new Mux(
     process.env.MUX_TOKEN_ID!,
